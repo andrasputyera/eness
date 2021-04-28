@@ -4,7 +4,7 @@
             <router-link :to="{ name: '' }">
              <span class="nav-title">Vitalize Your Day</span>
             </router-link>
-            <a href="" class="btn-floating btn-large halfway-fab amber">
+            <a href="" class="btn-floating btn-large halfway-fab amber darken-2">
                 <router-link :to="{ name: '' }">
                     <i class="material-icons">add</i>
                 </router-link>
