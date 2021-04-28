@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Index from '@/components/Index.vue'
+import AddSmoothie from '@/components/AddSmoothie.vue'
 
 
 const routes = [
@@ -7,6 +8,11 @@ const routes = [
     path: '/',
     name: 'Index',
     component: Index
+  },
+  {
+    path: '/add-smoothie',
+    name: 'AddSmoothie',
+    component: AddSmoothie
   }
 ]
 
