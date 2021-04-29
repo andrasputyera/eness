@@ -16,7 +16,9 @@
             </div> -->
             <ul class="ingredients">
                 <li v-for="(ing, index) in ingredients" :key="index">
-                    <span class="chip">{{ ing }}</span>
+                    <span class="chip">{{ ing }}
+                        <i class="close material-icons">close</i>
+                    </span>
                 </li>
             </ul>
             <div class="field center-align">
@@ -28,6 +30,8 @@
 </template>
 
 <script>
+import db from '@/firebase/config'
+import slugify from 'slugify'
 
 export default {
     name: 'AddSmoothie',
@@ -36,12 +40,32 @@ export default {
             title: null,
             another: null,
             ingredients: [],
-            feedback: null
+            feedback: null,
+            slug: null
         }
     },
     methods: {
         addSmoothie() {
-
+            if (this.title) {
+                this.feedback = null
+                // Create a slug from the title
+                this.slug = slugify(this.title, {
+                    replacement: '-',
+                    remove: /[$*_+~.()'"!\-:@]/g,
+                    lower: true,
+                })
+                db.collection('smoothies').add({
+                    title: this.title,
+                    ingredients: this.ingredients,
+                    slug: this.slug
+                }).then(() => {
+                    this.$router.push({ name: 'Index' })
+                }).catch(err => {
+                    console.log(err)
+                })
+            } else {
+                this.feedback = 'You must enter a smoothie title'
+            }
         },
         addIngredient() {
             if (this.another) {
@@ -56,7 +80,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .add-smoothie {
   margin-top: 60px;
   padding: 20px;
@@ -70,10 +94,10 @@ export default {
   margin: 20px auto;
 }
 
-.ingredients {
+.add-smoothie .ingredients {
   margin: 30px auto;
 }
-.ingredients li {
+.add-smoothie .ingredients li {
   display: inline-block;
 }
 </style>
