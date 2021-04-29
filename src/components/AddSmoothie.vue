@@ -16,8 +16,8 @@
             </div> -->
             <ul class="ingredients">
                 <li v-for="(ing, index) in ingredients" :key="index">
-                    <span class="chip">{{ ing }}
-                        <i class="close material-icons">close</i>
+                    <span class="chip deep-purple lighten-5">{{ ing }}
+                        <i class="close material-icons" @click="deleteIngredient(ing)">close</i>
                     </span>
                 </li>
             </ul>
@@ -75,6 +75,11 @@ export default {
             } else {
                 this.feedback = 'You must enter a value to add an ingredient.'
             }
+        },
+        deleteIngredient(ing) {
+            this.ingredients = this.ingredients.filter(ingredient => {
+                return ingredient != ing
+            })
         }
     }
 }
@@ -99,5 +104,8 @@ export default {
 }
 .add-smoothie .ingredients li {
   display: inline-block;
+}
+.add-smoothie .chip {
+  background-color: aqua;
 }
 </style>
